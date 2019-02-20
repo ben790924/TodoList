@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>TodoList</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.7/angular.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.9"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css?family=Permanent+Marker" rel="stylesheet">
+</head>
+
+
+
+
+<body ng-app='myApp' ng-controller='todoCtrl'>
+    <div id="todoBox" class="container">
+        <div class="row">
+                <h1 class="col-12 text-center title">TodoList</h1>
+                <div class="col-12 text-center">
+                    <input type="text" class="input" ng-model='todoInput' placeholder="type something.." ng-keyup='addTodo()' required>
+                </div>
+                <!-- 要顯示的input -->
+                    <div class="col-12 text-center">
+                        <ol class="ol">
+                            <li ng-repeat='x in todoLists' id='editLi'>
+                                <input class="checkbox" type="checkbox" ng-click='clickCheckbox(x)' ng-show='isShow' ng-model='x.done'>
+                                <span ng-bind='x.todoText' ng-class="{'done':x.done}" ng-dblclick='dblEdit(x)'  ng-show='x.editShow' contenteditable="false" class="spanList"></span>
+                                <!-- <label for="editInput" ng-show='!x.editShow'>修改:</label> -->
+                                <input type="text" id="editInput" ng-keyup='saveEdit(x)' ng-model='x.todoText' ng-show='!x.editShow'>
+                            </li>
+                        </ol>
+                    </div>
+                <div class="col-12 text-center">
+                    <input type="button" class="btn btn-danger" ng-click='remove()' value="remove">
+                </div>
+        </div>
+        <div class="row">
+            <hr>
+            <div class="col-12 text-center"><h1 ng-show='finishTodos.length>0' class="white">Well Done , Finished!!</h1></div>
+            <div class="col-12 text-center">
+                <ol class="finish_ol">
+                    <li ng-repeat='item in finishTodos'>
+                        <span ng-show='item.done' class="finishText">{{item.todoText}}</span>
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    <script>
+        var app = angular.module('myApp',[])
+        app.controller('todoCtrl',function($scope){
+            $scope.todoLists=[]
+            $scope.finishTodos=[]
+            $scope.addTodo = function(){
+                if(event.keyCode === 13){
+                    if($scope.todoInput != ''){
+                    $scope.isShow = true
+                    $scope.todoLists.push({todoText:$scope.todoInput,done:false,editShow:true})
+                    $scope.todoInput = ''
+                }
+                }
+            },
+            $scope.remove = function(){
+                let oldLists = $scope.todoLists
+                $scope.todoLists = []
+                angular.forEach(oldLists,(x)=>{
+                    if(!x.done){
+                        $scope.todoLists.push(x)
+                    }
+                })
+            }
+            $scope.dblEdit = function(x){
+                // 方法之一 : 使用 HTML 屬性 contentEditable
+                // console.log(event.target.contentEditable)
+                // event.target.contentEditable = event.target.contentEditable == 'false' ? 'true':'false'
+                x.editShow = !x.editShow
+            }
+            $scope.saveEdit = function(x){
+                if(event.keyCode === 13){
+                    x.editShow = 'false'
+                }
+            }
+            $scope.clickCheckbox = function(x){
+                if(x.done == false){
+                    $scope.finishTodos.push(x)
+                }
+            }
+        })
+    </script>
+
+</body>
+
+</html>
