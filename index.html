@@ -24,14 +24,18 @@
 <body ng-app='myApp' ng-controller='todoCtrl'>
     <div id="todoBox" class="container">
         <div class="row">
-                <h1 class="col-12 text-center title">TodoList</h1>
+                <h1 class="col-7 text-right title">TodoList</h1>
+                <div class="col-5 text-center" class="headerRight">
+                    <label for="searchInput">Search : </label>
+                    <input type="text" id="searchInput" placeholder="Find lists" ng-model='searchText'>
+                </div>
                 <div class="col-12 text-center">
                     <input type="text" class="input" ng-model='todoInput' placeholder="type something.." ng-keyup='addTodo()' required>
                 </div>
-                <!-- 要顯示的input -->
+                <!-- lists 開始 -->
                     <div class="col-12 text-center">
                         <ol class="ol">
-                            <li ng-repeat='x in todoLists' id='editLi'>
+                            <li ng-repeat='x in todoLists | filter:searchText' id='editLi'>
                                 <input class="checkbox" type="checkbox" ng-click='clickCheckbox(x)' ng-show='isShow' ng-model='x.done'>
                                 <span ng-bind='x.todoText' ng-class="{'done':x.done}" ng-dblclick='dblEdit(x)'  ng-show='x.editShow' contenteditable="false" class="spanList"></span>
                                 <!-- <label for="editInput" ng-show='!x.editShow'>修改:</label> -->
@@ -39,10 +43,16 @@
                             </li>
                         </ol>
                     </div>
+                <!-- lists 結束 -->
                 <div class="col-12 text-center">
                     <input type="button" class="btn btn-danger" ng-click='remove()' value="remove">
+                    <div class="p_countWrap">
+                        <p class='p_count' ng-show='todoLists.length!=0'>You have {{todoLists.length}} lists , </p>
+                        <p class='p_count' ng-show='finishTodos.length!=0'>And now You have {{finishTodos.length}} finishes</p>
+                    </div>
                 </div>
         </div>
+        <!-- 已完成的 lists 開始 -->
         <div class="row">
             <hr>
             <div class="col-12 text-center"><h1 ng-show='finishTodos.length>0' class="white">Well Done , Finished!!</h1></div>
@@ -54,6 +64,7 @@
                 </ol>
             </div>
         </div>
+        <!-- 已完成的 lists 結束 -->
     </div>
     <script>
         var app = angular.module('myApp',[])
