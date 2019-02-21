@@ -103,6 +103,10 @@ body{
         width:75%;
         height: 30px;
         margin-bottom: 10px;
+        font-size: 10px;
+    }
+    .input:hover{
+        font-size: 25px;
     }
     .headerRight{
         margin: 10px 0;
