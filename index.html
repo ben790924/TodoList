@@ -64,7 +64,7 @@
             </div>
             <div class="col-12 text-center">
                 <ol class="finish_ol">
-                    <li ng-repeat='item in finishTodos' class="finish_li">
+                    <li ng-repeat='item in finishTodos track by $index' class="finish_li">
                         <span ng-show='item.done' class="finishText">{{item.todoText}}</span>
                     </li>
                 </ol>
@@ -107,8 +107,11 @@
                 }
             }
             $scope.clickCheckbox = function(x){
+                // console.log('finishTodos',$scope.finishTodos)
                 if(x.done == false){
-                    $scope.finishTodos.push(x)
+                    $scope.finishTodos.push(x) /* 單向推到finishTodos 如果按掉 checkbox 不會減去 [BUG] */
+                }else{
+                    return $scope.finishTodos.length--
                 }
             }
         })
