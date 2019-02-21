@@ -38,7 +38,7 @@
                         <ol class="ol">
                             <li ng-repeat='x in todoLists | filter:searchText' id='editLi'>
                                 <input class="checkbox" type="checkbox" ng-click='clickCheckbox(x)' ng-show='isShow' ng-model='x.done'>
-                                <span ng-bind='x.todoText' ng-class="{'done':x.done}" ng-dblclick='dblEdit(x)'  ng-show='x.editShow' contenteditable="false" class="spanList"></span>
+                                <span ng-bind='x.todoText' ng-class="{'done':x.done}" ng-click='dblEdit(x)'  ng-show='x.editShow' contenteditable="false" class="spanList"></span>
                                 <!-- <label for="editInput" ng-show='!x.editShow'>修改:</label> -->
                                 <input type="text" id="editInput" ng-keyup='saveEdit(x)' ng-model='x.todoText' ng-show='!x.editShow'>
                             </li>
