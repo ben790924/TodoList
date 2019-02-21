@@ -16,6 +16,7 @@
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css?family=Permanent+Marker" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 </head>
 
 
@@ -24,8 +25,8 @@
 <body ng-app='myApp' ng-controller='todoCtrl'>
     <div id="todoBox" class="container">
         <div class="row">
-                <h1 class="col-7 text-right title">TodoList</h1>
-                <div class="col-5 text-center" class="headerRight">
+                <h1 class="col-md-7 col-12 title">TodoList</h1>
+                <div class="col-md-5 col-12 text-center headerRight">
                     <label for="searchInput">Search : </label>
                     <input type="text" id="searchInput" placeholder="Find lists" ng-model='searchText'>
                 </div>
@@ -47,18 +48,23 @@
                 <div class="col-12 text-center">
                     <input type="button" class="btn btn-danger" ng-click='remove()' value="remove">
                     <div class="p_countWrap">
-                        <p class='p_count' ng-show='todoLists.length!=0'>You have {{todoLists.length}} lists , </p>
-                        <p class='p_count' ng-show='finishTodos.length!=0'>And now You have {{finishTodos.length}} finishes</p>
+                        <p class='p_count' ng-show='todoLists.length!=0'>You have <i class="i_count">{{todoLists.length}}</i> lists , </p>
+                        <p class='p_count' ng-show='finishTodos.length!=0'>And now You have <i class="i_count">{{finishTodos.length}}</i> finishes</p>
                     </div>
                 </div>
         </div>
         <!-- 已完成的 lists 開始 -->
         <div class="row">
             <hr>
-            <div class="col-12 text-center"><h1 ng-show='finishTodos.length>0' class="white">Well Done , Finished!!</h1></div>
+            <div class="col-12 text-center">
+                <h1 ng-show='finishTodos.length!=0' class="white">Well Done , Finished!!</h1>
+                <i class="fas fa-arrow-down arrowDown" ng-show='finishTodos.length!=0'></i>
+                <i class="fas fa-arrow-down arrowDown" ng-show='finishTodos.length!=0'></i>
+                <i class="fas fa-arrow-down arrowDown" ng-show='finishTodos.length!=0'></i>
+            </div>
             <div class="col-12 text-center">
                 <ol class="finish_ol">
-                    <li ng-repeat='item in finishTodos'>
+                    <li ng-repeat='item in finishTodos' class="finish_li">
                         <span ng-show='item.done' class="finishText">{{item.todoText}}</span>
                     </li>
                 </ol>

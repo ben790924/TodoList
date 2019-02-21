@@ -15,13 +15,27 @@ body{
 .white{
     color: white
 }
+.arrowDown{
+    color: rgb(255, 0, 0);
+    font-weight: bold;
+    width: 20px;
+    height: 20px;
+}
 .p_countWrap{
     border: 10px solid rgb(255, 217, 0);
-    margin-top: 5px;
+    margin: 10px 0;
 }
 .p_count{
     font-size: 25px;
     color: rgb(163, 255, 121)
+}
+.i_count{
+    color: rgb(255, 51, 0)
+}
+.finish_ol{
+    /* display: block; */
+    list-style: none;
+    padding: 0;
 }
 #todoBox{
     background:linear-gradient(rgb(255, 115, 0) 0% , orange 100%);
@@ -36,8 +50,9 @@ body{
 .spanList{
     cursor: pointer;
     font-size: 30px;
+    /* overflow: scroll; */
 }
-ol{
+.ol{
     list-style:  none;
 }
 .ol>li{
@@ -68,4 +83,44 @@ ol{
 }
 .finishText{
     font-size: 30px;
+}
+@media(max-width:1900px){
+    .title{
+        text-align: right;
+    }
+}
+@media(max-width:1200px){
+    .title{
+        text-align: right;
+    }
+}
+@media(max-width:767px){
+    .title{
+        text-align: center;
+        margin-bottom: 10px;
+    }
+    .input{
+        width:75%;
+        height: 30px;
+        margin-bottom: 10px;
+    }
+    .headerRight{
+        margin: 10px 0;
+    }
+    .checkbox{
+        position: absolute;
+        left: 0;
+        top: 5px;
+        width: 20px;
+        height: 20px;
+        box-shadow: 2px 2px 6px black;
+        background-color: black;
+    }
+    .finish_ol{
+        padding: 0;
+    }
+    .spanList{
+        width: 100px;
+        overflow: scroll;
+    }
 }
